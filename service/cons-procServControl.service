@@ -1,0 +1,23 @@
+[Unit]
+Description=CONS - ProcServControl
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Restart=always
+RestartSec=10
+Type=simple
+PIDFile=/var/tmp/procServControlPid
+
+Environment=EPICS_BASE=/opt/epics-R3.15.5/base
+Environment=EPICS_CA_AUTO_ADDR_LIST=YES
+
+WorkingDirectory=/opt/cons-procservcontrol/iocBoot/iocCONSProcServ
+
+ExecStart=/usr/local/bin/procServ -f -L - -p /var/tmp/procServControlPid --chdir  /opt/cons-procservcontrol/iocBoot/iocCONSProcServ 20201 ./st.cmd
+
+StandardOutput=syslog
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,25 @@
+version: '3.3'
+services:
+  procservcontrol:
+    image: lnlscon/procservcontrol:v1.0
+    hostname: ioc
+    deploy:
+      mode: replicated
+      replicas: 1
+    networks:
+      - procservcontrol_network
+    environment:
+      - PORT=20110
+    dns:
+      - 10.0.0.71
+      - 10.0.0.72
+    logging:
+      driver: "json-file"
+      options:
+        max-file: 10
+        max-size: 10m
+
+networks:
+  procservcontrol_network:
+    external:
+      name: "host"
