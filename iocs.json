@@ -23,5 +23,9 @@
     {"pv":"ProcCtrl:TS-04:PU-InjSeptF"          ,"ip":"10.128.255.4:21005", "desc":"Storage Ring - Injection Septum Thin",       "area":"EPP"},
     {"pv":"ProcCtrl:SI-01SA:PU-InjDpKckr"       ,"ip":"10.128.255.4:21006", "desc":"Storage Ring - Horizontal Pinger",           "area":"EPP"},
     {"pv":"ProcCtrl:SI-01SA:PU-InjNLKckr"       ,"ip":"10.128.255.4:21007", "desc":"Storage Ring - Kicker NLK/On Axis",          "area":"EPP"},
-    {"pv":"ProcCtrl:SI-19C4:PU-PingV"           ,"ip":"10.128.255.4:21011", "desc":"Storage Ring - Vertical Pinger",             "area":"EPP"}
+    {"pv":"ProcCtrl:SI-19C4:PU-PingV"           ,"ip":"10.128.255.4:21011", "desc":"Storage Ring - Vertical Pinger",             "area":"EPP"},
+    
+    {"pv":"ProcCtrl:Reg-Dip"                   ,"ip":"10.128.255.58:20200", "desc":"Regatron Dipoles",      "area":"ELP"},
+    {"pv":"ProcCtrl:Reg-Qua"                   ,"ip":"10.128.255.59:20200", "desc":"Regatron Quadrupoles",  "area":"ELP"},
+    {"pv":"ProcCtrl:Reg-Sex"                   ,"ip":"10.128.255.60:20200", "desc":"Regatron Sextupoles",   "area":"ELP"}
 ]
