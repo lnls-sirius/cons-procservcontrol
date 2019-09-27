@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import json
+import logging
 from pydm import Display
 from pydm.widgets.related_display_button import PyDMRelatedDisplayButton
 
@@ -11,33 +12,29 @@ def load_iocs():
         iocs = json.load(f)
     return iocs
 
+logger = logging.getLogger()
 
 class Main(Display):
     def __init__(self,parent=None):
         super().__init__(parent=parent, ui_filename='main.ui')
-
         self.iocs = load_iocs()
-
-        self.rf_layout = QVBoxLayout()
-        self.epp_layout = QVBoxLayout()
-
+        self.areas = set([e['area'] for e in self.iocs])
+        self.tabs = {}
         self.init_layout()
 
-        self.rf_tab.setLayout(self.rf_layout)
-        self.epp_tab.setLayout(self.epp_layout)
-
     def init_layout(self):
+        for area in self.areas:
+            self.tabs[area] = QWidget()
+            self.tabs[area].setLayout(QVBoxLayout())
+            self.tabWidget.addTab(self.tabs[area], area)
+
         for ioc in self.iocs:
             button = PyDMRelatedDisplayButton(ioc['desc'])
             button.filenames = ['procServControl.ui']
             button.macros = '{"P":"' + ioc['pv'] + '"}'
             button.showIcon = False
             button.openInNewWindow = True
+            self.tabs[ioc['area']].layout().addWidget(button)
 
-            if ioc['area']  == 'EPP':
-                self.epp_layout.addWidget(button)
-            elif ioc['area']  == 'RF':
-                self.rf_layout.addWidget(button)
-
-        self.rf_layout.addStretch(0)
-        self.epp_layout.addStretch(0)
+        for area in self.areas:
+            self.tabs[area].layout().addStretch(0)
