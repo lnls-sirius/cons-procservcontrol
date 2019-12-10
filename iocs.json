@@ -9,6 +9,7 @@
 
     {"pv":"ProcCtrl:ToSI-SSA01"                 ,"ip":"10.128.124.161:20200", "desc":"Storage Ring - Solid-State Aplifiers 01",  "area":"RF"},
     {"pv":"ProcCtrl:ToSI-SSA02"                 ,"ip":"10.128.124.162:20200", "desc":"Storage Ring - Solid-State Aplifiers 02",  "area":"RF"},
+    {"pv":"ProcCtrl:ILK-SR1"                    ,"ip":"10.128.124.141:20202", "desc":"Storage Ring - Interlock",                 "area":"RF"},
     {"pv":"ProcCtrl:SR-RF-DLLRF-01"             ,"ip":"10.128.124.141:20200", "desc":"Storage Ring - Low-Level",                 "area":"RF"},
     {"pv":"ProcCtrl:RA-RaSIA01:RF-LLRFCalSys"   ,"ip":"10.128.124.165:20200", "desc":"Storage Ring - Low-Level Calibration",     "area":"RF"},
     {"pv":"ProcCtrl:RA-RaSIA01:RF-CavPlDrivers" ,"ip":"10.128.124.166:20200", "desc":"Storage Ring - Low-Level Plunger Drivers", "area":"RF"},
