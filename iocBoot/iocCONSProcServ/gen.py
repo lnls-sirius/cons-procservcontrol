@@ -14,11 +14,13 @@ cd "${TOP}"
 ## Register all support components
 dbLoadDatabase "dbd/consProcServ.dbd"
 consProcServ_registerRecordDeviceDriver pdbbase
+asSetFilename("${TOP}/log/Security.as")
 
 '''
 init = '''
 cd "${TOP}/iocBoot/${IOC}"
 iocInit
+caPutLogInit "10.128.255.4:7012" 2
 
 '''
 def load_ioc():

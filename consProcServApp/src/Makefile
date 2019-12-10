@@ -20,6 +20,7 @@ consProcServ_DBD += asyn.dbd
 consProcServ_DBD += drvAsynIPPort.dbd
 consProcServ_DBD += busySupport.dbd
 consProcServ_DBD += procServControl.dbd
+consProcServ_DBD += caPutLog.dbd
 
 # Add all the support libraries needed by this IOC
 consProcServ_LIBS += procServControl
@@ -27,6 +28,7 @@ consProcServ_LIBS += busy
 consProcServ_LIBS += seq
 consProcServ_LIBS += pv
 consProcServ_LIBS += asyn
+consProcServ_LIBS += caPutLog
 
 # consProcServ_registerRecordDeviceDriver.cpp derives from consProcServ.dbd
 consProcServ_SRCS += consProcServ_registerRecordDeviceDriver.cpp

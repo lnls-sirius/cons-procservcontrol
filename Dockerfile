@@ -1,41 +1,33 @@
 # Author: Cláudio Ferreira Carneiro
  # LNLS - Brazilian Synchrotron Light Source Laboratory
  
- FROM  lnlscon/epics-r3.15.5:asyn3.35_StreamDevice2.8.8
+ FROM  lnlscon/epics-r3.15.6:v1.2
  LABEL maintainer="Claudio Carneiro <claudio.carneiro@lnls.br>"
  
- ENV CONS_IP 10.128.255.5
- ENV CONS_REPO http://${CONS_IP}:20081/download
- ENV TZ America/Sao_Paulo
  ENV BUSY ${EPICS_MODULES}/busy-R1-7-2
  ENV PROCSERVCONTROL ${EPICS_MODULES}/procServControl-1-2
  ENV SNCSEQ ${EPICS_MODULES}/seq-2.2.6
 
+RUN apt-get update &&\
+    apt-get install -y --no-install-recommends re2c && rm -rf /var/lib/apt/lists/*
+
  ### Sequencer
- RUN apt-get -y install re2c                            &&\
-    cd ${EPICS_MODULES}                                 &&\
-    wget ${CONS_REPO}/EPICS/seq-2.2.6.tar.gz            &&\
-    tar -xvzf seq-2.2.6.tar.gz                          &&\
-    rm -f seq-2.2.6.tar.gz                              &&\
-    sed -i -e '6cEPICS_BASE=/opt/epics-R3.15.5/base'    \
-    seq-2.2.6/configure/RELEASE                         &&\
-    cd seq-2.2.6                                        &&\
-    make -j 32
+ RUN cd ${EPICS_MODULES} && wget ${CONS_REPO}/EPICS/seq-2.2.6.tar.gz &&\
+        tar -xvzf seq-2.2.6.tar.gz && rm -f seq-2.2.6.tar.gz &&\
+        sed -i -e '6cEPICS_BASE='${EPICS_BASE} \
+            seq-2.2.6/configure/RELEASE &&\
+        cd seq-2.2.6 && make -j 32
 
  ### Busy
- RUN cd ${EPICS_MODULES}                    &&\
-     wget ${CONS_REPO}/EPICS/R1-7-2.tar.gz  &&\
-     tar -zxvf R1-7-2.tar.gz                &&\
-     rm -f R1-7-2.tar.gz                    &&\
-     cd busy-R1-7-2                         &&\
+ RUN cd ${EPICS_MODULES} && wget ${CONS_REPO}/EPICS/R1-7-2.tar.gz  && tar -zxvf R1-7-2.tar.gz &&\
+     rm -f R1-7-2.tar.gz && cd busy-R1-7-2 &&\
      sed -i\
-         -e '7,8s/^/#/'                     \
-         -e '11cASYN='${ASYN}               \
-         -e '14cAUTOSAVE='${AUTOSAVE}       \
-         -e '17cBUSY='${BUSY}               \
-         -e '20cEPICS_BASE='${EPICS_BASE}   \
-         configure/RELEASE                  &&\
-         make -j 32
+            -e '7,8s/^/#/'                     \
+            -e '11cASYN='${ASYN}               \
+            -e '14cAUTOSAVE='${AUTOSAVE}       \
+            -e '17cBUSY='${BUSY}               \
+            -e '20cEPICS_BASE='${EPICS_BASE}   \
+         configure/RELEASE && make -j 32
   
   ### procServControl
   RUN  cd ${EPICS_MODULES}                               &&\
@@ -57,7 +49,12 @@
    WORKDIR /opt/cons-procservcontrol
 
    COPY configure       configure
+   RUN sed -i -e '1cSNCSEQ='${SNCSEQ} -e '2cASYN='${ASYN} -e '3cBUSY='${BUSY}\
+        -e '4cPROCSERVCONTROL='${PROCSERVCONTROL} -e '5cCAPUTLOG='${CAPUTLOG}\
+        -e '8cEPICS_BASE='${EPICS_BASE} configure/RELEASE
+
    COPY Makefile        Makefile
+   COPY log             log
    COPY iocBoot         iocBoot
    COPY consProcServApp consProcServApp
 

@@ -30,7 +30,3 @@ iocBoot_DEPEND_DIRS += $(filter %App,$(DIRS))
 
 include $(TOP)/configure/RULES_TOP
 
-.PHONY: docker
-
-docker:
-	docker build -t lnlscon/procservcontrol:v1.2 -f Dockerfile .

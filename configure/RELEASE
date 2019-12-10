@@ -2,7 +2,7 @@ SNCSEQ=/opt/epics-R3.15.5/modules/seq-2.2.6
 ASYN=/opt/epics-R3.15.5/modules/asyn4-35
 BUSY=/opt/epics-R3.15.5/modules/busy-R1-7-2
 PROCSERVCONTROL=/opt/epics-R3.15.5/modules/procServControl-1-2
-#/opt/epics-R3.15.5/modules/procServControl-1-9
+CAPUTLOG=/opt/epics-R3.15.5/modules/caPutLog-R3.6
 
 # EPICS_BASE should appear last so earlier modules can override stuff:
 EPICS_BASE = /opt/epics-R3.15.5/base
