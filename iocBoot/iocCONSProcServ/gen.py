@@ -38,8 +38,8 @@ if __name__ == "__main__":
     seq = ""
     db = ""
     for ioc in load_ioc():
-        asynIP += 'drvAsynIPPortConfigure("P{0}",  "{1}", 100, 0, 0)\n'.format(
-            port, ioc["ip"]
+        asynIP += 'drvAsynIPPortConfigure("P{0}",  "{1}", 100, 0, 0) # {2}\n'.format(
+            port, ioc["ip"], ioc["pv"]
         )
         seq += 'seq(procServControl,"P={0}")\n'.format(ioc["pv"])
         db += 'dbLoadRecords("db/procServControl.db","P={1},PORT=P{0},SHOWOUT=1,MANUALSTART=,NAME={1}")\n'.format(
