@@ -1,7 +1,7 @@
 # Author: Cláudio Ferreira Carneiro
  # LNLS - Brazilian Synchrotron Light Source Laboratory
  
- FROM  lnlscon/epics-r3.15.6:v1.2
+ FROM  lnlscon/epics-r3.15.8:v1.0
  LABEL maintainer="Claudio Carneiro <claudio.carneiro@lnls.br>"
  
  ENV BUSY ${EPICS_MODULES}/busy-R1-7-2
@@ -49,9 +49,7 @@ RUN apt-get update &&\
    WORKDIR /opt/cons-procservcontrol
 
    COPY configure       configure
-   RUN sed -i -e '1cSNCSEQ='${SNCSEQ} -e '2cASYN='${ASYN} -e '3cBUSY='${BUSY}\
-        -e '4cPROCSERVCONTROL='${PROCSERVCONTROL} -e '5cCAPUTLOG='${CAPUTLOG}\
-        -e '8cEPICS_BASE='${EPICS_BASE} configure/RELEASE
+   RUN envsubst < configure/RELEASE.tmplt > configure/RELEASE && cat configure/RELEASE
 
    COPY Makefile        Makefile
    COPY log             log
