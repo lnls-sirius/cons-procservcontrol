@@ -7,6 +7,7 @@
  ENV BUSY ${EPICS_MODULES}/busy-R1-7-2
  ENV PROCSERVCONTROL ${EPICS_MODULES}/procServControl-1-2
  ENV SNCSEQ ${EPICS_MODULES}/seq-2.2.6
+ ENV CONS_REPO http://10.0.38.42/download
 
 RUN apt-get update &&\
     apt-get install -y --no-install-recommends re2c && rm -rf /var/lib/apt/lists/*
