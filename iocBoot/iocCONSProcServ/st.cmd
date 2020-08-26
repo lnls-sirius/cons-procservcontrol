@@ -1,16 +1,15 @@
 #!../../bin/linux-x86_64/consProcServ
 
-## You may have to change consProcServ to something else
-## everywhere it appears in this file
-
 < envPaths
+
+epicsEnvSet("EPICS_IOC_LOG_INET", "$(EPICS_IOC_LOG_INET)")
+epicsEnvSet("EPICS_IOC_LOG_PORT", "$(EPICS_IOC_LOG_PORT)")
 
 cd "${TOP}"
 
-## Register all support components
 dbLoadDatabase "dbd/consProcServ.dbd"
 consProcServ_registerRecordDeviceDriver pdbbase
-asSetFilename("${TOP}/log/Security.as")
+asSetFilename("${TOP}/db/Security.as")
 
 drvAsynIPPortConfigure("P0",  "10.128.124.140:20200", 100, 0, 0) # ProcCtrl:BR-RF-DLLRF-01
 drvAsynIPPortConfigure("P1",  "10.128.124.140:20202", 100, 0, 0) # ProcCtrl:ILK-Booster
@@ -41,6 +40,7 @@ drvAsynIPPortConfigure("P25",  "10.128.255.4:21011", 100, 0, 0) # ProcCtrl:SI-19
 drvAsynIPPortConfigure("P26",  "10.128.255.58:20200", 100, 0, 0) # ProcCtrl:Reg-Dip
 drvAsynIPPortConfigure("P27",  "10.128.255.59:20200", 100, 0, 0) # ProcCtrl:Reg-Qua
 drvAsynIPPortConfigure("P28",  "10.128.255.60:20200", 100, 0, 0) # ProcCtrl:Reg-Sex
+
 dbLoadRecords("db/procServControl.db","P=ProcCtrl:BR-RF-DLLRF-01,PORT=P0,SHOWOUT=1,MANUALSTART=,NAME=ProcCtrl:BR-RF-DLLRF-01")
 dbLoadRecords("db/procServControl.db","P=ProcCtrl:ILK-Booster,PORT=P1,SHOWOUT=1,MANUALSTART=,NAME=ProcCtrl:ILK-Booster")
 dbLoadRecords("db/procServControl.db","P=ProcCtrl:RF-PowerMeter,PORT=P2,SHOWOUT=1,MANUALSTART=,NAME=ProcCtrl:RF-PowerMeter")
@@ -73,7 +73,8 @@ dbLoadRecords("db/procServControl.db","P=ProcCtrl:Reg-Sex,PORT=P28,SHOWOUT=1,MAN
 
 cd "${TOP}/iocBoot/${IOC}"
 iocInit
-caPutLogInit "10.128.255.4:7012" 2
+iocLogInit
+caPutLogInit "$(EPICS_IOC_CAPUTLOG_INET):$(EPICS_IOC_CAPUTLOG_PORT)" 2
 
 seq(procServControl,"P=ProcCtrl:BR-RF-DLLRF-01")
 seq(procServControl,"P=ProcCtrl:ILK-Booster")

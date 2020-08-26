@@ -4,23 +4,23 @@ import json
 
 header = """#!../../bin/linux-x86_64/consProcServ
 
-## You may have to change consProcServ to something else
-## everywhere it appears in this file
-
 < envPaths
+
+epicsEnvSet("EPICS_IOC_LOG_INET", "$(EPICS_IOC_LOG_INET)")
+epicsEnvSet("EPICS_IOC_LOG_PORT", "$(EPICS_IOC_LOG_PORT)")
 
 cd "${TOP}"
 
-## Register all support components
 dbLoadDatabase "dbd/consProcServ.dbd"
 consProcServ_registerRecordDeviceDriver pdbbase
-asSetFilename("${TOP}/log/Security.as")
+asSetFilename("${TOP}/db/Security.as")
 
 """
 init = """
 cd "${TOP}/iocBoot/${IOC}"
 iocInit
-caPutLogInit "10.128.255.4:7012" 2
+iocLogInit
+caPutLogInit "$(EPICS_IOC_CAPUTLOG_INET):$(EPICS_IOC_CAPUTLOG_PORT)" 2
 
 """
 
@@ -47,10 +47,11 @@ if __name__ == "__main__":
         )
         port += 1
     data += asynIP
+    data += "\n"
     data += db
     data += init
     data += seq
     with open("st.cmd", "w+") as f:
         f.write(data)
 
-    os.chmod("st.cmd", 0754)
+    os.chmod("st.cmd", 0o754)
