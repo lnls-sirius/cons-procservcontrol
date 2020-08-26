@@ -66,5 +66,6 @@ COPY consProcServApp consProcServApp
 
 RUN make clean; make distclean; make -j 32
 
-WORKDIR /opt/cons-procservcontrol/iocBoot/iocCONSProcServ
-CMD /usr/local/bin/procServ -n "CONS-PROC-IOC" -L - -f -c /opt/cons-procservcontrol/iocBoot/iocCONSProcServ -i ^D^C ${PROCSERV_IOC_PORT} ./st.cmd
+COPY bin/entrypoint.sh /opt/entrypoint.sh
+
+CMD ["/bin/bash", "/opt/entrypoint.sh"]
