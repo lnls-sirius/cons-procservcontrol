@@ -4,7 +4,7 @@
     {"pv":"ProcCtrl:RF-PowerMeter"              ,"ip":"10.128.124.140:20206", "desc":"Booster - Power Meter",                       "area":"RF"},
     {"pv":"ProcCtrl:TCU6"                       ,"ip":"10.128.124.140:20208", "desc":"Booster - Circulator",                        "area":"RF"},
     {"pv":"ProcCtrl:P7WaterCalc"                ,"ip":"10.128.124.140:20210", "desc":"Petra 7 Power Calc",                          "area":"RF"},
-    {"pv":"ProcCtrl:RF-Gen"                     ,"ip":"10.128.124.140:20212", "desc":"RF Renerator - RSSMX100A",                    "area":"RF"},
+    {"pv":"ProcCtrl:RF-Gen"                     ,"ip":"10.128.124.140:20212", "desc":"RF Renerator - R&S SMX100A",                  "area":"RF"},
     {"pv":"ProcCtrl:RA-RaBO01:RF-LLRFCalSys"    ,"ip":"10.128.124.163:20200", "desc":"Booster - Low-Level Calibration",             "area":"RF"},
     {"pv":"ProcCtrl:RA-RaBO01:RF-LLRFPlDrivers" ,"ip":"10.128.124.164:20200", "desc":"Booster - Low-Level Plunger Drivers Booster", "area":"RF"},
     {"pv":"ProcCtrl:ToBO-SSA01"                 ,"ip":"10.128.124.160:20200", "desc":"Booster - Solid-State Aplifiers",             "area":"RF"},
