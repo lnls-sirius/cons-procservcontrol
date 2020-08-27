@@ -11,7 +11,11 @@ cd iocBoot/iocCONSProcServ/
 |EPICS_IOC_CAPUTLOG_PORT|7012|EPICS Logging Port (generic)|
 |EPICS_IOC_LOG_INET|0.0.0.0|EPICS Logging Inet (caput)|
 |EPICS_IOC_LOG_PORT|7011|EPICS Logging Port (caput)|
-|PROCSERV_IOC_PORT|20110| procServ Port|
+
+In order to access this IOC shell:
+```bash
+   socat - UNIX-CLIENT:${PROCSERV_SOCKET}
+```
 
 ## Docker
 [Dockerhub Image](https://hub.docker.com/r/lnlscon/procservcontrol)

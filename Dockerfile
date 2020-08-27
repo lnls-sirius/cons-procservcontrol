@@ -15,10 +15,7 @@ ENV EPICS_IOC_CAPUTLOG_PORT 7012
 ENV EPICS_IOC_LOG_INET 0.0.0.0
 ENV EPICS_IOC_LOG_PORT 7011
 
-ENV PROCSERV_IOC_PORT 20110
-
-
-RUN apt-get update && apt-get install -y --no-install-recommends re2c && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends re2c socat && rm -rf /var/lib/apt/lists/*
 
 ### Sequencer
 RUN cd ${EPICS_MODULES} && wget ${CONS_REPO}/EPICS/seq-2.2.6.tar.gz &&\
@@ -66,6 +63,6 @@ COPY consProcServApp consProcServApp
 
 RUN make clean; make distclean; make -j 32
 
+ENV PROCSERV_SOCKET "/opt/procServIOC.sock"
 COPY bin/entrypoint.sh /opt/entrypoint.sh
-
 CMD ["/bin/bash", "/opt/entrypoint.sh"]
