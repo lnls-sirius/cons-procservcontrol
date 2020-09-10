@@ -15,14 +15,18 @@ ENV EPICS_IOC_CAPUTLOG_PORT 7012
 ENV EPICS_IOC_LOG_INET 0.0.0.0
 ENV EPICS_IOC_LOG_PORT 7011
 
-RUN apt-get update && apt-get install -y --no-install-recommends re2c socat && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        re2c\
+        socat\
+    && rm -rf /var/lib/apt/lists/*
 
 ### Sequencer
 RUN cd ${EPICS_MODULES} && wget ${CONS_REPO}/EPICS/seq-2.2.6.tar.gz &&\
     tar -xvzf seq-2.2.6.tar.gz && rm -f seq-2.2.6.tar.gz &&\
     sed -i -e '6cEPICS_BASE='${EPICS_BASE} \
         seq-2.2.6/configure/RELEASE &&\
-    cd seq-2.2.6 && make -j 32
+    cd seq-2.2.6 && make -j$(nproc)
 
 ### Busy
 RUN cd ${EPICS_MODULES} && wget ${CONS_REPO}/EPICS/R1-7-2.tar.gz  && tar -zxvf R1-7-2.tar.gz &&\
@@ -33,7 +37,7 @@ RUN cd ${EPICS_MODULES} && wget ${CONS_REPO}/EPICS/R1-7-2.tar.gz  && tar -zxvf R
         -e '14cAUTOSAVE='${AUTOSAVE}       \
         -e '17cBUSY='${BUSY}               \
         -e '20cEPICS_BASE='${EPICS_BASE}   \
-        configure/RELEASE && make -j 32
+        configure/RELEASE && make -j$(nproc)
 
 ### procServControl
 RUN  cd ${EPICS_MODULES}                               &&\
@@ -49,7 +53,7 @@ RUN  cd ${EPICS_MODULES}                               &&\
         -e '28cBUSY='${BUSY}                          \
         -e '31cEPICS_BASE='${EPICS_BASE}              \
         configure/RELEASE                             &&\
-        make -j 32
+        make -j$(nproc)
 
 RUN mkdir -p /opt/cons-procservcontrol
 WORKDIR /opt/cons-procservcontrol
@@ -61,8 +65,8 @@ COPY Makefile        Makefile
 COPY iocBoot         iocBoot
 COPY consProcServApp consProcServApp
 
-RUN make clean; make distclean; make -j 32
+RUN make clean; make distclean; make -j$(nproc)
 
 ENV PROCSERV_SOCKET "/opt/procServIOC.sock"
-COPY bin/entrypoint.sh /opt/entrypoint.sh
+COPY entrypoint.sh /opt/entrypoint.sh
 CMD ["/bin/bash", "/opt/entrypoint.sh"]

@@ -37,9 +37,6 @@ drvAsynIPPortConfigure("P22",  "10.128.255.4:21005", 100, 0, 0) # ProcCtrl:TS-04
 drvAsynIPPortConfigure("P23",  "10.128.255.4:21006", 100, 0, 0) # ProcCtrl:SI-01SA:PU-InjDpKckr
 drvAsynIPPortConfigure("P24",  "10.128.255.4:21007", 100, 0, 0) # ProcCtrl:SI-01SA:PU-InjNLKckr
 drvAsynIPPortConfigure("P25",  "10.128.255.4:21011", 100, 0, 0) # ProcCtrl:SI-19C4:PU-PingV
-drvAsynIPPortConfigure("P26",  "10.128.255.58:20200", 100, 0, 0) # ProcCtrl:Reg-Dip
-drvAsynIPPortConfigure("P27",  "10.128.255.59:20200", 100, 0, 0) # ProcCtrl:Reg-Qua
-drvAsynIPPortConfigure("P28",  "10.128.255.60:20200", 100, 0, 0) # ProcCtrl:Reg-Sex
 
 dbLoadRecords("db/procServControl.db","P=ProcCtrl:BR-RF-DLLRF-01,PORT=P0,SHOWOUT=1,MANUALSTART=,NAME=ProcCtrl:BR-RF-DLLRF-01")
 dbLoadRecords("db/procServControl.db","P=ProcCtrl:ILK-Booster,PORT=P1,SHOWOUT=1,MANUALSTART=,NAME=ProcCtrl:ILK-Booster")
@@ -67,9 +64,6 @@ dbLoadRecords("db/procServControl.db","P=ProcCtrl:TS-04:PU-InjSeptF,PORT=P22,SHO
 dbLoadRecords("db/procServControl.db","P=ProcCtrl:SI-01SA:PU-InjDpKckr,PORT=P23,SHOWOUT=1,MANUALSTART=,NAME=ProcCtrl:SI-01SA:PU-InjDpKckr")
 dbLoadRecords("db/procServControl.db","P=ProcCtrl:SI-01SA:PU-InjNLKckr,PORT=P24,SHOWOUT=1,MANUALSTART=,NAME=ProcCtrl:SI-01SA:PU-InjNLKckr")
 dbLoadRecords("db/procServControl.db","P=ProcCtrl:SI-19C4:PU-PingV,PORT=P25,SHOWOUT=1,MANUALSTART=,NAME=ProcCtrl:SI-19C4:PU-PingV")
-dbLoadRecords("db/procServControl.db","P=ProcCtrl:Reg-Dip,PORT=P26,SHOWOUT=1,MANUALSTART=,NAME=ProcCtrl:Reg-Dip")
-dbLoadRecords("db/procServControl.db","P=ProcCtrl:Reg-Qua,PORT=P27,SHOWOUT=1,MANUALSTART=,NAME=ProcCtrl:Reg-Qua")
-dbLoadRecords("db/procServControl.db","P=ProcCtrl:Reg-Sex,PORT=P28,SHOWOUT=1,MANUALSTART=,NAME=ProcCtrl:Reg-Sex")
 
 cd "${TOP}/iocBoot/${IOC}"
 iocInit
@@ -102,6 +96,3 @@ seq(procServControl,"P=ProcCtrl:TS-04:PU-InjSeptF")
 seq(procServControl,"P=ProcCtrl:SI-01SA:PU-InjDpKckr")
 seq(procServControl,"P=ProcCtrl:SI-01SA:PU-InjNLKckr")
 seq(procServControl,"P=ProcCtrl:SI-19C4:PU-PingV")
-seq(procServControl,"P=ProcCtrl:Reg-Dip")
-seq(procServControl,"P=ProcCtrl:Reg-Qua")
-seq(procServControl,"P=ProcCtrl:Reg-Sex")
