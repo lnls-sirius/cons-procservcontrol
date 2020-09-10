@@ -1,20 +1,25 @@
 version: '3.7'
 services:
   procservcontrol:
-    image: lnlscon/procservcontrol:v1.6
+    image: lnlscon/procservcontrol:v2.0
     hostname: ioc
     build:
         dockerfile: 'Dockerfile'
         context: .
         labels:
-            - "br.com.lnls-sirius.description=procServ Control"
+            - "br.com.lnls-sirius.description=Generic ProcServControl IOC"
             - "br.com.lnls-sirius.department=CONS"
             - "br.com.lnls-sirius.maintener=Claudio Ferreira Carneiro"
+
     environment:
-      - PORT=20110
+        # EPICS logging
+        - EPICS_IOC_CAPUTLOG_INET=0.0.0.0
+        - EPICS_IOC_CAPUTLOG_PORT=7012
+        - EPICS_IOC_LOG_INET=0.0.0.0
+        - EPICS_IOC_LOG_PORT=7011
     dns:
-      - 10.0.0.71
-      - 10.0.0.72
+        - 10.0.0.71
+        - 10.0.0.72
     logging:
       driver: "json-file"
       options:
