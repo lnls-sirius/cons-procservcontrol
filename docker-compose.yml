@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   procservcontrol:
-    image: lnlscon/procservcontrol:v2.1
+    image: lnlscon/procservcontrol:v2.2
     hostname: ioc
     build:
         dockerfile: 'Dockerfile'
