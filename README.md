@@ -1,10 +1,13 @@
 # cons-procservcontrol
+This repository is responsible for the procServControl applications of various IOCs that are not containerized, mostly related to the RF subsystem.
 
-To update the `st.cmd` file:
+## Build & Configuration
+Before building a new image, update the `st.cmd` file:
 ```
 cd iocBoot/iocCONSProcServ/
 ./gen.py
 ```
+Some useful environment variables:
 |Env|Default|Desc|
 |---|---|---|
 |EPICS_IOC_CAPUTLOG_INET|0.0.0.0|EPICS Logging Inet (generic)|
